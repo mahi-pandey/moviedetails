@@ -20,6 +20,7 @@ const getMovieInfo = async (movie) => {
 
         const showMovieData = (data) => {
             movieContainer.innerHTML = "";
+            movieContainer.classList.remove('noBackground');
 
             // Ensure Title is properly parsed
             const title = data.Title || "Unknown Title";
@@ -65,11 +66,27 @@ const getMovieInfo = async (movie) => {
     }
 };
 
+// function to dispaly error message
+const showErrorMessage = (message) =>{
+    movieContainer.innerHTML = `<h2>${message} </h2>`;
+        movieContainer.classList.add('noBackground');
+
+}
+
+
+
+
 // Event listener for search form
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const movieName = inputBox.value.trim();
     if (movieName !== '') {
+        showErrorMessage('Fetching the movie details')
         getMovieInfo(movieName);
+    }
+    else{
+
+        showErrorMessage("Enter a movie name to get movie information");
+        
     }
 });
